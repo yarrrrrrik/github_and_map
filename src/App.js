@@ -1,21 +1,23 @@
 import React from 'react'
-import Repos from './components/repos'
-import {connect,useDispatch} from 'react-redux'
-import {getRepos} from './redux/actions'
+import ReposTab from './components/repos-tab'
+import MapTab from './components/map-tab'
+// import {connect,useDispatch} from 'react-redux'
+// import {getRepos} from './redux/actions'
 
+/*
+
+if state tab1 = true => return tab1
+else return tab2
+ */
+ // <ReposTab/>
 
 function App(props) {
 
-
   return (
     <div className="App">
-      <Repos/>
+      <MapTab/>
     </div>
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {getRepos}
-}
-
-export default connect(null,{getRepos})(App);
+export default App

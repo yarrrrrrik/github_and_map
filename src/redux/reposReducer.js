@@ -2,7 +2,7 @@ import * as types from './types'
 
 
 const initial_state = {
-  repos:[]
+  repos:[],
 }
 
 export const reposReducer = (state = initial_state,action) => {
@@ -13,4 +13,3 @@ export const reposReducer = (state = initial_state,action) => {
       return state
   }
 }
-// state.repos.push(action.repo)

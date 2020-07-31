@@ -1,6 +1,6 @@
 import * as types from './types.js'
 
-const getRepos = (repos) => {
+const getRepos = () => {
   class Repo{
     constructor(title,issues_url){
       this.title = title;
@@ -9,7 +9,7 @@ const getRepos = (repos) => {
   }
 
   return async function getReposRequest(dispatch) {
-    repos = []
+    let repos = []
     let request = await fetch(`https://api.github.com/search/repositories?q=stars:>0&sort=stars&order=desc&page=1&per_page=10`)
     let response = await request.json()
 
@@ -18,10 +18,10 @@ const getRepos = (repos) => {
         repos.push(repo)
     });
 
-
    dispatch({type:types.GET_REPOS,repos})
 }
 }
+
 const getIssues = (repo) => {
   return async function getIssuesRequest(dispatch) {
     let request = await fetch(repo.issues_url)
@@ -30,4 +30,7 @@ const getIssues = (repo) => {
     dispatch({type:types.GET_ISSUES,issues})
   }
 }
-export {getRepos,getIssues}
+
+const closeIssues = () => ({type:types.CLOSE_ISSUES})
+
+export {getRepos,getIssues,closeIssues}

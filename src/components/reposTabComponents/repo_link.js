@@ -1,6 +1,6 @@
 import React from 'react'
-import {useStore,connect,useSelector,useDispatch} from 'react-redux'
-import {getRepos,getIssues} from '../redux/actions'
+import {useDispatch} from 'react-redux'
+import {getIssues} from '../../redux/actions'
 
 function RepoLink({repo}) {
   const dispatch = useDispatch()
