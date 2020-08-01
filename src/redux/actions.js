@@ -1,6 +1,7 @@
 import * as types from './types.js'
 
 const getRepos = () => {
+
   class Repo{
     constructor(title,issues_url){
       this.title = title;
@@ -26,11 +27,24 @@ const getIssues = (repo) => {
   return async function getIssuesRequest(dispatch) {
     let request = await fetch(repo.issues_url)
     let issues = await request.json()
-    console.log(issues)
     dispatch({type:types.GET_ISSUES,issues})
   }
 }
 
 const closeIssues = () => ({type:types.CLOSE_ISSUES})
 
-export {getRepos,getIssues,closeIssues}
+const getCars = () => {
+
+  return async function getCarsRequest(dispatch){
+  let request = await fetch('https://youdrive.today/info')
+  let carsData = await request.json()
+  let yekaterinburgCars = carsData.cars.filter((car, i) => {
+    if(car.latitude > 56.11 && car.latitude < 57.55 && car.longitude > 59.887 && car.longitude < 61.327){
+      return car
+    }
+  }
+)
+  dispatch({type:types.GET_CARS,yekaterinburgCars})
+}
+}
+export {getRepos,getIssues,closeIssues,getCars}

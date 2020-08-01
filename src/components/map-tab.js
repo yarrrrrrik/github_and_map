@@ -1,22 +1,17 @@
 import React,{useState} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
+import {getCars} from '../redux/actions'
 // import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import {GoogleMap, withScriptjs,withGoogleMap,Marker,InfoWindow} from "react-google-maps";
 
 function Map() {
   // const [variable,setVariable] = useState(false)
-  async function getCars() {
-    let request = await fetch('https://youdrive.today/info')
-    let carsData = await request.json()
-    let arr = []
-    let yekaterinburgCars = carsData.cars.filter((car, i) => {
-      if(car.latitude > 56.11 && car.latitude < 57.55 && car.longitude > 59.887 && car.longitude < 61.327){
-        return car
-      }
-    });
-    console.log(yekaterinburgCars)
+  const dispatch = useDispatch()
+  const cars = useSelector(state => state.mapTab.cars)
 
+  if (!cars.length) {
+    dispatch(getCars())
   }
-  getCars()
   return(
     <GoogleMap
       defaultZoom={11}
