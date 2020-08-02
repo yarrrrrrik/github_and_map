@@ -2,13 +2,19 @@ import React from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {closeIssues} from '../../redux/actions'
 import Issue from './issue'
-
+import Loader from '../loader'
 function Issues() {
 
   const dispatch = useDispatch()
   const issues = useSelector(state => state.issues.issues)
 
-  if(issues){
+  const loading = useSelector(state => state.issues.loading)
+
+  if(loading){
+    return <Loader/>
+  }
+
+  if(issues.length){
     return (
       <div>
         <button onClick={() => dispatch(closeIssues())} >Закрыть</button>
@@ -17,6 +23,7 @@ function Issues() {
       </div>
     )
     }
+    return <div> Выберите репозиторий </div>
   }
 
 

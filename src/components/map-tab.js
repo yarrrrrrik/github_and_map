@@ -1,18 +1,24 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import {getCars,selectCar,unselectCar} from '../redux/actions'
-// import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import {GoogleMap, withScriptjs,withGoogleMap,Marker,InfoWindow} from "react-google-maps";
 
+import Loader from './loader'
+
 function Map() {
-  // const [variable,setVariable] = useState(false)
   const dispatch = useDispatch()
   const cars = useSelector(state => state.mapTab.cars)
   const selectedCar = useSelector(state => state.mapTab.car)
-  console.log(selectedCar);
+  const loading = useSelector(state => state.mapTab.loading)
+
   if (!cars.length) {
     dispatch(getCars())
   }
+
+  if(loading){
+    return <Loader/>
+  }
+  
   return(
     <GoogleMap
       defaultZoom={12}
@@ -33,9 +39,11 @@ function Map() {
           lng: selectedCar.longitude
         }}
       >
-        <div>
-          <h2>{selectedCar.model}</h2>
-          <p>{selectedCar.transmission}</p>
+        <div className='car-info'>
+          <img src={selectedCar.img} alt={selectedCar.model}/>
+          <h2 className='car-info__title'>{selectedCar.model}</h2>
+          <p className='car-info__transmisson'>Transmission: {selectedCar.transmission}</p>
+          <p className='car-info__fuel'>Fuel:{selectedCar.fuel}</p>
         </div>
       </InfoWindow>
     )}
@@ -44,11 +52,5 @@ function Map() {
 
 }
 const MapTab = withScriptjs(withGoogleMap(Map));
-// {variable && (<InfoWindow position={{lat: 56.838272, lng: 60.607088 }}><h1>y</h1></InfoWindow>)}
 
-// export default GoogleApiWrapper({
-//   apiKey: ('AIzaSyAm0qvYvetoYR18LjkGoD12UfSc9v1MIsA')
-// })(MapTab)
 export default MapTab
-// AIzaSyAm0qvYvetoYR18LjkGoD12UfSc9v1MIsA
-// export default MapTab
