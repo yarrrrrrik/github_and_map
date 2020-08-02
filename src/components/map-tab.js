@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
-import {getCars} from '../redux/actions'
+import {getCars,selectCar,unselectCar} from '../redux/actions'
 // import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import {GoogleMap, withScriptjs,withGoogleMap,Marker,InfoWindow} from "react-google-maps";
 
@@ -8,16 +8,37 @@ function Map() {
   // const [variable,setVariable] = useState(false)
   const dispatch = useDispatch()
   const cars = useSelector(state => state.mapTab.cars)
-
+  const selectedCar = useSelector(state => state.mapTab.car)
+  console.log(selectedCar);
   if (!cars.length) {
     dispatch(getCars())
   }
   return(
     <GoogleMap
-      defaultZoom={11}
+      defaultZoom={12}
       defaultCenter={{ lat: 56.838272, lng: 60.607088 }}
     >
-    <Marker position={{ lat: 56.838272, lng: 60.607088 }} onClick={() => {}}/>
+    {cars.map((car,i) => (<Marker key={i} position={{lat: car.latitude,lng: car.longitude}}
+     onClick={() => {
+      dispatch(selectCar(car))
+    }}
+    />))})
+    {selectedCar && (
+      <InfoWindow
+        onCloseClick={() => {
+          dispatch(unselectCar())
+        }}
+        position={{
+          lat: selectedCar.latitude,
+          lng: selectedCar.longitude
+        }}
+      >
+        <div>
+          <h2>{selectedCar.model}</h2>
+          <p>{selectedCar.transmission}</p>
+        </div>
+      </InfoWindow>
+    )}
     </GoogleMap>
   )
 

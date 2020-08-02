@@ -47,4 +47,9 @@ const getCars = () => {
   dispatch({type:types.GET_CARS,yekaterinburgCars})
 }
 }
-export {getRepos,getIssues,closeIssues,getCars}
+
+const selectCar = (selectedCar) =>({type:types.SELECT_CAR,selectedCar})
+
+const unselectCar = () => ({type:types.UNSELECT_CAR})
+
+export {getRepos,getIssues,closeIssues,getCars,selectCar,unselectCar}
