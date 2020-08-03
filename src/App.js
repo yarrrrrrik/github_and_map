@@ -22,8 +22,10 @@ function App(props) {
 
   return (
     <div style={{ width: "100vw", height: "100vh" }} className="App">
-      <button onClick={()=>dispatch(reposTab())}>Repos</button>
-      <button onClick={()=>dispatch(mapTab())}>Map</button>
+      <nav className='nav'>
+        <button onClick={()=>dispatch(reposTab())}>Repos</button>
+        <button onClick={()=>dispatch(mapTab())}>Map</button>
+      </nav>
 
       {selectedTab === 1 && (
         <ReposTab/>

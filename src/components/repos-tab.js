@@ -2,17 +2,20 @@ import React from 'react'
 import Repos from './reposTabComponents/repos'
 import Issues from './reposTabComponents/issues'
 import {useSelector} from 'react-redux'
-// import {getRepos} from './redux/actions'
 
 
 function ReposTab(props) {
 
-  
+  const hidden = useSelector(state => state.issues.hiddenRepos) //костыль
 
   return (
-    <div className="App">
-      <Repos/>
-      <Issues/>
+    <div className="repos-tab">
+      <div className={`repos-tab__repos ${hidden}`}>
+        <Repos/>
+      </div>
+      <div className='repos-tab__issues'>
+        <Issues/>
+      </div>
     </div>
   );
 }

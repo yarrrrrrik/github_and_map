@@ -6,13 +6,6 @@ import Loader from '../loader'
 
 const Repos = () => {
 
-  class Repo {
-    constructor(title, issues) {
-      this.title = title;
-      this.issues = issues
-    }
-  }
-
   const dispatch = useDispatch()
   const repos = useSelector(state => state.repos.repos)
   const loading = useSelector(state => state.repos.loading)

@@ -10,23 +10,22 @@ const getRepos = () => {
   }
 
   return async function getReposRequest(dispatch) {
-    dispatch(showLoader())
+    dispatch(reposShowLoader())
 
     let request = await fetch(`https://api.github.com/search/repositories?q=stars:>0&sort=stars&order=desc&page=1&per_page=25`)
     let response = await request.json()
 
     let repos = response.items.map((item, i) => {
-        return new Repo(item.name,item.issues_url.substring(0,item.issues_url.indexOf('{'))) // без {/number} в конце
+        return new Repo(item.name,item.issues_url.substring(0,item.issues_url.indexOf('{')))
     });
 
    dispatch({type:types.GET_REPOS,repos})
-   dispatch(hideLoader())
+   dispatch(reposHideLoader())
 
 }
 }
 
 const getIssues = (repo) => {
-
 
   return async function getIssuesRequest(dispatch) {
     dispatch(issuesShowLoader())
@@ -42,7 +41,6 @@ const closeIssues = () => ({type:types.CLOSE_ISSUES})
 
 const getCars = () => {
   return async function getCarsRequest(dispatch){
-  dispatch(showLoader())
 
   let request = await fetch('https://youdrive.today/info')
   let carsData = await request.json()
@@ -53,7 +51,6 @@ const getCars = () => {
   }
 )
   dispatch({type:types.GET_CARS,yekaterinburgCars})
-  dispatch(hideLoader())
 }
 }
 
@@ -65,12 +62,12 @@ const reposTab = () => ({type:types.REPOS_TAB})
 
 const mapTab = () => ({type:types.MAP_TAB})
 
-const showLoader = () => ({type:types.SHOW_LOADER})
+const reposShowLoader = () => ({type:types.REPOS_SHOW_LOADER})
 
-const hideLoader = () => ({type:types.HIDE_LOADER})
+const reposHideLoader = () => ({type:types.REPOS_HIDE_LOADER})
 
 const issuesShowLoader = () => ({type:types.ISSUES_SHOW_LOADER})
 
 const issuesHideLoader = () => ({type:types.ISSUES_HIDE_LOADER})
 
-export {getRepos,getIssues,closeIssues,getCars,selectCar,unselectCar,reposTab,mapTab,showLoader,hideLoader,issuesShowLoader,issuesHideLoader}
+export {getRepos,getIssues,closeIssues,getCars,selectCar,unselectCar,reposTab,mapTab,reposShowLoader,reposHideLoader,issuesShowLoader,issuesHideLoader}

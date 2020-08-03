@@ -7,8 +7,9 @@ function Issues() {
 
   const dispatch = useDispatch()
   const issues = useSelector(state => state.issues.issues)
-
   const loading = useSelector(state => state.issues.loading)
+  const hidden = useSelector(state => state.issues.hidden)
+
 
   if(loading){
     return <Loader/>
@@ -16,14 +17,13 @@ function Issues() {
 
   if(issues.length){
     return (
-      <div>
+      <div className={`issues ${hidden}`}>
         <button onClick={() => dispatch(closeIssues())} >Закрыть</button>
         {issues.map((issue, i) => <Issue issue={issue} key={i}/>)}
-
       </div>
     )
     }
-    return <div> Выберите репозиторий </div>
+    return <h2 className="issues-title hidden"> Выберите репозиторий </h2>
   }
 
 

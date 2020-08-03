@@ -2,8 +2,8 @@ import React from 'react'
 
 function issue({issue}) {
   return(
-    <a className="issue" href={issue.url}>
-      <h3 >{issue.title}</h3>
+    <a className="issues__issue" href={issue.html_url}>
+      <span >{issue.title}</span>
     </a>
   )
 }
