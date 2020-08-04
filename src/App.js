@@ -4,14 +4,7 @@ import MapTab from './components/map-tab'
 import {useSelector,useDispatch} from 'react-redux'
 import {reposTab,mapTab} from './redux/actions'
 
-// import {connect,useDispatch} from 'react-redux'
-// import {getRepos} from './redux/actions'
 
-/*
-
-if state tab1 = true => return tab1
-else return tab2
- */
 
 function App(props) {
 
@@ -46,7 +39,3 @@ function App(props) {
 }
 
 export default App
-// googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm0qvYvetoYR18LjkGoD12UfSc9v1MIsA&v=3.exp&libraries=geometry,drawing,places"
-// loadingElement={<div style={{ height: `100%` }} />}
-// containerElement={<div style={{ height: `400px` }} />}
-// mapElement={<div style={{ height: `100%` }} />}
